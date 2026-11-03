@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One setup, every device</title>
+<style>
+  :root{
+    --bg:#0b0e14; --panel:#121824; --panel2:#0f1420; --line:#232c3d;
+    --txt:#e6ebf5; --mut:#8b95a8; --dim:#5d6779;
+    --cy:#7dd3fc; --vi:#a78bfa; --gr:#4ade80; --am:#fbbf24; --rd:#f87171;
+    --mono:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--txt);
+    font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  main{max-width:1080px;margin:0 auto;padding:56px 28px 96px}
+
+  .eyebrow{font:600 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+    color:var(--dim);margin:0 0 10px}
+  h1{font-size:40px;line-height:1.1;margin:0 0 14px;letter-spacing:-.02em}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--cy),var(--vi));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{color:var(--mut);max-width:64ch;margin:0}
+  section{margin-top:64px}
+  h2{font-size:20px;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--mut);font-size:14px;margin:0 0 22px;max-width:70ch}
+
+  /* ---- pipeline ---- */
+  .pipe{display:grid;grid-template-columns:1fr 128px 1fr 128px 1fr;align-items:center;gap:0}
+  @media(max-width:880px){.pipe{grid-template-columns:1fr}}
+  .node{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px}
+  .node .tag{font:600 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .node h3{margin:8px 0 2px;font-size:15px}
+  .node p{margin:0;font-size:12.5px;color:var(--mut)}
+  .node.accent{border-color:#2b3f56;background:linear-gradient(180deg,#14202e,#121824)}
+  .node.accent h3{color:var(--cy)}
+  .node.remote{border-color:#3a2f52;background:linear-gradient(180deg,#1a1526,#121824)}
+  .node.remote h3{color:var(--vi)}
+  .tree{font:11.5px/1.75 var(--mono);color:var(--dim);margin-top:10px;white-space:pre}
+  .tree b{color:var(--txt);font-weight:500}
+  .conn{position:relative;height:60px;display:flex;align-items:center;justify-content:center}
+  .conn::before{content:"";position:absolute;left:8px;right:8px;top:50%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--line),transparent)}
+  .conn span{position:relative;background:var(--bg);padding:2px 8px;
+    font:600 10.5px/1.4 var(--mono);color:var(--dim);border:1px solid var(--line);border-radius:99px}
+  .conn::after{content:"";position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    border-left:7px solid var(--line);border-top:4px solid transparent;border-bottom:4px solid transparent}
+  @media(max-width:880px){
+    .conn{height:52px;flex-direction:column}
+    .conn::before{left:50%;right:auto;top:6px;bottom:6px;width:1px;height:auto;
+      background:linear-gradient(180deg,transparent,var(--line),transparent)}
+    .conn::after{right:auto;left:50%;top:auto;bottom:6px;transform:translateX(-50%);
+      border-top:7px solid var(--line);border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:0}
+  }
+
+  /* ---- split ledger ---- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.split{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .card h3{margin:0 0 4px;font-size:14px;display:flex;align-items:center;gap:8px}
+  .card .why{color:var(--dim);font-size:12.5px;margin:0 0 14px}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .dot.y{background:var(--gr);box-shadow:0 0 10px #4ade8066}
+  .dot.n{background:var(--rd);box-shadow:0 0 10px #f8717166}
+  .dot.a{background:var(--am);box-shadow:0 0 10px #fbbf2466}
+  ul.list{list-style:none;margin:0;padding:0}
+  ul.list li{display:flex;gap:10px;padding:7px 0;border-top:1px dashed #1e2635;font-size:13.5px}
+  ul.list li:first-child{border-top:0}
+  ul.list code{font:12px var(--mono);color:var(--cy);background:#0d1420;padding:1px 5px;border-radius:5px}
+  ul.list small{color:var(--dim);font-size:12px}
+
+  /* ---- tiers ---- */
+  .tiers{display:grid;gap:12px}
+  .tier{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .tier .num{font:700 20px/1 var(--mono);color:var(--dim)}
+  .tier h3{margin:0 0 3px;font-size:14.5px}
+  .tier p{margin:0;font-size:13px;color:var(--mut)}
+  .tier .fit{font:600 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+    padding:7px 11px;border-radius:99px;white-space:nowrap}
+  .fit.best{color:#06240f;background:var(--gr)}
+  .fit.ok{color:#1a1403;background:var(--am)}
+  .fit.far{color:var(--mut);border:1px solid var(--line)}
+
+  /* ---- code ---- */
+  pre{background:var(--panel2);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;overflow:auto;margin:0;font:12.5px/1.7 var(--mono);color:#cdd6e6}
+  pre .c{color:var(--dim)}
+  pre .k{color:var(--vi)}
+  pre .s{color:var(--gr)}
+  pre .p{color:var(--cy)}
+
+  /* ---- mcp anatomy ---- */
+  .anat{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:start}
+  @media(max-width:820px){.anat{grid-template-columns:1fr}}
+  .bar{display:flex;align-items:center;gap:10px;margin:10px 0 0;font-size:12.5px}
+  .bar .fill{height:6px;border-radius:99px;flex:1;background:#1b2333;overflow:hidden}
+  .bar .fill i{display:block;height:100%;border-radius:99px}
+  .bar .pct{font:600 11px var(--mono);color:var(--mut);width:36px;text-align:right}
+
+  /* ---- steps ---- */
+  .steps{counter-reset:s;display:grid;gap:14px}
+  .step{position:relative;padding-left:44px}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;
+    width:28px;height:28px;border-radius:9px;display:grid;place-items:center;
+    background:#16202e;border:1px solid #2b3f56;color:var(--cy);font:600 12px var(--mono)}
+  .step h3{margin:2px 0 8px;font-size:14.5px}
+  .step p{margin:0 0 10px;color:var(--mut);font-size:13.5px}
+
+  .callout{border-left:2px solid var(--am);background:#1a1608;border-radius:0 10px 10px 0;
+    padding:12px 16px;color:#e8d9a8;font-size:13.5px;margin-top:18px}
+  .callout b{color:#fff}
+  footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--dim);font-size:12.5px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <p class="eyebrow">Agent config · device sync</p>
+    <h1>Set it up once. <em>Open it anywhere.</em></h1>
+    <p class="lede">Your MCP servers, skills, agents and commands should live in <b>one git repo</b>,
+      not in one machine's home folder. The device stops being the source of truth — it becomes a cache.</p>
+  </header>
+
+  <!-- 1 -->
+  <section>
+    <p class="eyebrow">01 · The shape of the fix</p>
+    <h2>Config flows through a repo, not through your memory</h2>
+    <p class="sub">You edit on any device, push, and every other device is one <code style="font:12px var(--mono);color:var(--cy)">pull</code> behind. No re-setup, no drift.</p>
+
+    <div class="pipe">
+      <div class="node accent">
+        <span class="tag">Device A · laptop</span>
+        <h3>You edit here</h3>
+        <p>Add an MCP server, tweak a skill.</p>
+        <div class="tree">~/.config/opencode
+├── <b>opencode.jsonc</b>
+├── <b>skills/</b>
+├── <b>agents/</b>
+└── <b>commands/</b></div>
+      </div>
+
+      <div class="conn"><span>git push</span></div>
+
+      <div class="node remote">
+        <span class="tag">Private remote</span>
+        <h3>agent-config repo</h3>
+        <p>Plain text. Reviewable. Versioned. Free.</p>
+        <div class="tree">github.com/you/
+└── <b>agent-config</b>
+    ├── opencode.jsonc
+    ├── skills/
+    └── bootstrap.ps1</div>
+      </div>
+
+      <div class="conn"><span>clone / pull</span></div>
+
+      <div class="node">
+        <span class="tag">Device B · desktop</span>
+        <h3>Already set up</h3>
+        <p>Same servers, same skills, same defaults.</p>
+        <div class="tree">~/.config/opencode
+├── opencode.jsonc  <span style="color:#4ade80">✓</span>
+├── skills/         <span style="color:#4ade80">✓</span>
+└── agents/         <span style="color:#4ade80">✓</span></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>Key property:</b> OpenCode watches its config files. After a <code style="font:12px var(--mono)">git pull</code>
+      the changes are live — no restart, no reinstall, no re-adding MCP servers by hand.
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <p class="eyebrow">02 · What can and cannot travel</p>
+    <h2>Split your setup into three buckets</h2>
+    <p class="sub">Everything works once you accept that one bucket is portable, one is per-device, and one is deliberately never synced.</p>
+
+    <div class="split">
+      <div class="card">
+        <h3><span class="dot y"></span>Travels in git</h3>
+        <p class="why">Deterministic, safe to commit, identical everywhere.</p>
+        <ul class="list">
+          <li><div><code>opencode.jsonc</code><br><small>model, default agent, permissions, MCP definitions, skills sources</small></div></li>
+          <li><div><code>skills/</code><br><small>SKILL.md folders + their scripts and references</small></div></li>
+          <li><div><code>agents/</code> · <code>commands/</code><br><small>subagents and slash commands</small></div></li>
+          <li><div><code>plugins/</code><br><small>local plugin packages, if you keep any</small></div></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3><span class="dot n"></span>Never sync</h3>
+        <p class="why">Device state and credentials. Syncing these causes bugs and leaks.</p>
+        <ul class="list">
+          <li><div><code>service.json</code><br><small>background-service registration, per machine</small></div></li>
+          <li><div><code>~/.local/share/opencode</code><br><small>sessions, database, logs</small></div></li>
+          <li><div>API keys / tokens<br><small>keep in env vars or a <code>{file:}</code> secret file</small></div></li>
+          <li><div>MCP OAuth tokens<br><small>stored outside config; each device signs in once</small></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:16px">
+      <div class="card">
+        <h3><span class="dot a"></span>Per-device, one-time</h3>
+        <p class="why">Unavoidable, but only once per machine — and never again after that.</p>
+        <ul class="list">
+          <li><div>Runtime installs<br><small><code>npx</code> / <code>uvx</code> / <code>bunx</code> MCP servers fetch themselves on first use</small></div></li>
+          <li><div>MCP OAuth sign-in<br><small><code>/mcps</code> → select server → authorize. Cached afterwards.</small></div></li>
+          <li><div>Provider auth<br><small>whatever login your model provider needs</small></div></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3><span class="dot y"></span>Free compatibility win</h3>
+        <p class="why">OpenCode also reads these global skill folders — so if hermes or Claude Code already uses them, both harnesses share one directory.</p>
+        <ul class="list">
+          <li><div><code>~/.config/opencode/skills</code><br><small>native global skills</small></div></li>
+          <li><div><code>~/.claude/skills</code><br><small>global compatibility path</small></div></li>
+          <li><div><code>~/.agents/skills</code><br><small>global compatibility path</small></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <p class="eyebrow">03 · Pick your laziness level</p>
+    <h2>Three ways to point a new device at the setup</h2>
+    <p class="sub">Same repo underneath. Choose by how much you want to install on a fresh machine.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="num">01</div>
+        <div>
+          <h3>Clone the config directory</h3>
+          <p>Repo <i>is</i> <code style="font:12px var(--mono);color:var(--cy)">~/.config/opencode</code>. One <code style="font:12px var(--mono);color:var(--cy)">git clone</code> and you are done.</p>
+        </div>
+        <span class="fit best">simplest · start here</span>
+      </div>
+
+      <div class="tier">
+        <div class="num">02</div>
+        <div>
+          <h3>Dotfiles repo + symlink</h3>
+          <p>Keep one <code style="font:12px var(--mono);color:var(--cy)">~/dotfiles</code> repo for everything; link <code style="font:12px var(--mono);color:var(--cy)">agent-config/opencode</code> into place. Skills can be shared by hermes, Claude Code, and OpenCode at once.</p>
+        </div>
+        <span class="fit ok">best if you sync more</span>
+      </div>
+
+      <div class="tier">
+        <div class="num">03</div>
+        <div>
+          <h3>HTTP skill catalog</h3>
+          <p>Put an <code style="font:12px var(--mono);color:var(--cy)">index.json</code> on GitHub Pages and list the URL in <code style="font:12px var(--mono);color:var(--cy)">skills</code>. The device needs <i>nothing</i> but a URL — skills download and cache.</p>
+        </div>
+        <span class="fit far">zero install · many machines</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <p class="eyebrow">04 · The MCP reality check</p>
+    <h2>MCP is 90% portable, 10% per-device — by design</h2>
+    <p class="sub">Server definitions are just JSON. Secrets and OAuth tokens are deliberately kept out of your config, so they never reach git.</p>
+
+    <div class="anat">
+      <div>
+        <pre><span class="p">{</span>
+  <span class="k">"mcp"</span>: <span class="p">{</span>
+    <span class="k">"servers"</span>: <span class="p">{</span>
+      <span class="k">"context7"</span>: <span class="p">{</span>
+        <span class="k">"type"</span>: <span class="s">"remote"</span>,
+        <span class="k">"url"</span>: <span class="s">"https://mcp.context7.com/mcp"</span>   <span class="c">// travels</span>
+      <span class="p">},</span>
+      <span class="k">"company-tools"</span>: <span class="p">{</span>
+        <span class="k">"type"</span>: <span class="s">"remote"</span>,
+        <span class="k">"url"</span>: <span class="s">"https://mcp.example.com/mcp"</span>,
+        <span class="k">"headers"</span>: <span class="p">{</span>
+          <span class="k">"Authorization"</span>: <span class="s">"Bearer {env:MCP_API_KEY}"</span>  <span class="c">// not the key itself</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></pre>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:12px">What a new device still needs</h3>
+        <div class="bar"><span style="width:120px;color:var(--mut)">server defs</span><span class="fill"><i style="width:100%;background:var(--gr)"></i></span><span class="pct">100%</span></div>
+        <div class="bar"><span style="width:120px;color:var(--mut)">skills</span><span class="fill"><i style="width:100%;background:var(--gr)"></i></span><span class="pct">100%</span></div>
+        <div class="bar"><span style="width:120px;color:var(--mut)">secret values</span><span class="fill"><i style="width:8%;background:var(--rd)"></i></span><span class="pct">once</span></div>
+        <div class="bar"><span style="width:120px;color:var(--mut)">OAuth login</span><span class="fill"><i style="width:8%;background:var(--am)"></i></span><span class="pct">once</span></div>
+        <p style="font-size:12.5px;color:var(--dim);margin:16px 0 0">
+          Secrets go in your shell profile, a <code style="font:11.5px var(--mono);color:var(--cy)">{file:~/.secrets/x}</code> path,
+          or a password manager. OAuth credentials live outside config — sign in via <code style="font:11.5px var(--mono);color:var(--cy)">/mcps</code> once per device.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <p class="eyebrow">05 · The new-device ritual</p>
+    <h2>One command, then one sign-in</h2>
+    <p class="sub">This is the whole thing you repeat on a fresh machine. Everything else is automatic.</p>
+
+    <div class="steps">
+      <div class="step">
+        <h3>Clone the config into place</h3>
+        <pre><span class="c"># Windows (PowerShell)</span>
+git clone git@github.com:YOU/agent-config.git "$env:USERPROFILE\.config\opencode"
+
+<span class="c"># macOS / Linux</span>
+git clone git@github.com:YOU/agent-config.git ~/.config/opencode</pre>
+      </div>
+      <div class="step">
+        <h3>Restore the one per-machine file</h3>
+        <pre><span class="c"># back up before you clone, copy back after</span>
+Copy-Item "$env:USERPROFILE\.config\opencode\service.json" $env:TEMP\service.json</pre>
+      </div>
+      <div class="step">
+        <h3>Sign in to OAuth MCPs — once</h3>
+        <pre><span class="c"># inside OpenCode</span>
+/mcps   <span class="c">→ select server → authorize in browser</span>
+opencode mcp list   <span class="c">→ confirm "connected"</span></pre>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>That's the whole gap.</b> Everything you actually configured — servers, skills, agents, permissions, defaults —
+      arrives with the clone. The only per-device cost is credentials you shouldn't be copying anyway.
+    </div>
+  </section>
+
+  <footer>device-sync · opencode v2 · config = ~/.config/opencode/opencode.jsonc</footer>
+</main>
+</body>
+</html>

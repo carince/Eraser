@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Eraser — Pixel mockups</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:'Google Sans','Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:#0b0a0f;color:#e6e0e9;
+  padding:44px 28px 100px;
+  -webkit-font-smoothing:antialiased;
+}
+.page{max-width:1380px;margin:0 auto}
+h1{font-size:30px;font-weight:500;letter-spacing:-.4px;margin:0 0 6px}
+.sub{color:#a9a3b8;font-size:14px;margin:0 0 10px;max-width:74ch;line-height:1.55}
+h2{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#9d97ad;margin:54px 0 20px}
+.gallery{display:flex;gap:34px;flex-wrap:wrap;align-items:flex-start}
+.figure{display:flex;flex-direction:column;gap:14px;align-items:center}
+.caption{font-size:12.5px;color:#9d97ad;letter-spacing:.2px}
+.caption b{color:#d8d2e4;font-weight:500}
+
+/* ---------------- device ---------------- */
+.phone{
+  width:412px;height:915px;flex:0 0 auto;position:relative;
+  border-radius:58px;background:#08080a;padding:11px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 2px 0 rgba(255,255,255,.16),
+    0 34px 90px rgba(0,0,0,.65);
+}
+.screen{
+  width:100%;height:100%;border-radius:47px;overflow:hidden;position:relative;
+  background:#000;isolation:isolate;
+}
+.status{
+  position:absolute;top:0;left:0;right:0;height:54px;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;font-size:14px;font-weight:500;letter-spacing:.2px;
+}
+.status .right{display:flex;align-items:center;gap:7px}
+.status svg{display:block}
+.status.on-dark{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.status.on-light{color:#1d1b20}
+
+/* ---------------- wallpaper ---------------- */
+.wallpaper{position:absolute;inset:0;z-index:0}
+.wallpaper::before,.wallpaper::after{content:"";position:absolute;border-radius:50%;filter:blur(70px)}
+.light-wall{
+  background:
+    radial-gradient(120% 80% at 15% 0%, #8f6bff 0%, transparent 58%),
+    radial-gradient(95% 70% at 95% 12%, #ff7fb0 0%, transparent 55%),
+    radial-gradient(120% 90% at 45% 105%, #4b6bff 0%, transparent 62%),
+    linear-gradient(165deg,#2b1c63 0%,#171a4a 45%,#0d1030 100%);
+}
+.light-wall::before{width:320px;height:320px;left:-90px;top:120px;background:rgba(255,190,120,.35)}
+.light-wall::after{width:280px;height:280px;right:-80px;bottom:220px;background:rgba(90,220,255,.28)}
+.dark-wall{
+  background:
+    radial-gradient(120% 80% at 15% 0%, #3a2a7a 0%, transparent 58%),
+    radial-gradient(95% 70% at 95% 12%, #6a2448 0%, transparent 55%),
+    radial-gradient(120% 90% at 45% 105%, #10265c 0%, transparent 62%),
+    linear-gradient(165deg,#161029 0%,#0c0d22 55%,#07080f 100%);
+}
+.dark-wall::before{width:300px;height:300px;left:-90px;top:140px;background:rgba(120,90,255,.28)}
+.dark-wall::after{width:260px;height:260px;right:-70px;bottom:240px;background:rgba(40,180,220,.20)}
+
+/* ---------------- home layout ---------------- */
+.home{position:absolute;inset:0;z-index:5;padding:60px 16px 0;display:flex;flex-direction:column;gap:13px}
+.glance{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 4px;color:#fff}
+.glance .g-left{display:flex;gap:10px;align-items:flex-start}
+.glance .g-icon{margin-top:1px;opacity:.9}
+.g-date{font-size:14px;font-weight:500;letter-spacing:.1px}
+.g-meta{font-size:12px;opacity:.78;margin-top:2px}
+.g-temp{font-size:26px;font-weight:400;letter-spacing:-.5px}
+
+.home-spacer{flex:1}
+.searchbar{
+  height:56px;border-radius:28px;display:flex;align-items:center;gap:12px;
+  padding:0 18px;background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);color:#fff;font-size:15px;
+}
+.glogo{font-weight:700;font-size:19px;line-height:1;
+  background:conic-gradient(from -45deg,#4285F4 0 25%,#34A853 0 50%,#FBBC05 0 75%,#EA4335 0);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.searchbar .mic{margin-left:auto;opacity:.9}
+.dock{
+  height:86px;border-radius:30px;margin-top:12px;
+  display:flex;align-items:center;justify-content:space-around;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.10);
+  backdrop-filter:blur(20px);padding:0 10px;
+}
+.dock-ic{width:56px;height:56px;border-radius:17px;display:grid;place-items:center;color:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.28)}
+.dots{display:flex;gap:6px;justify-content:center;padding:14px 0 8px}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45)}
+.dots i.on{background:#fff}
+.navpill{width:134px;height:5px;border-radius:99px;background:rgba(255,255,255,.55);margin:0 auto 8px}
+
+/* ---------------- widget ---------------- */
+.widget{
+  --w-surface:#f7f2fa;
+  --w-on:#1d1b20;
+  --w-onvar:#49454f;
+  --w-outline:#79747e;
+  --w-outlinevar:#cac4d0;
+  --w-primary:#6750a4;
+  --w-onprimary:#fff;
+  --w-pcontainer:#eaddff;
+  --w-onpcontainer:#21005d;
+  --w-error:#b3261e;
+  width:100%;border-radius:28px;background:var(--w-surface);color:var(--w-on);
+  padding:14px 14px 10px;position:relative;
+  box-shadow:0 1px 2px rgba(0,0,0,.18),0 12px 30px rgba(0,0,0,.22);
+}
+.widget.dark{
+  --w-surface:#1d1b20;--w-on:#e6e0e9;--w-onvar:#cac4d0;--w-outline:#938f99;
+  --w-outlinevar:#49454f;--w-primary:#d0bcff;--w-onprimary:#381e72;
+  --w-pcontainer:#4f378b;--w-onpcontainer:#eaddff;--w-error:#f2b8b5;
+  box-shadow:0 1px 2px rgba(0,0,0,.5),0 12px 30px rgba(0,0,0,.45);
+}
+.w-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 8px}
+.w-title{font-size:14px;font-weight:500}
+.w-badge{font-size:11px;font-weight:500;line-height:1;padding:3px 8px;border-radius:99px;
+  background:var(--w-pcontainer);color:var(--w-onpcontainer)}
+.w-sub{font-size:11px;font-weight:500;color:var(--w-onvar)}
+.w-sub.warn{color:#a16207}
+.widget.dark .w-sub.warn{color:#fbbf24}
+
+.row{display:flex;align-items:center;gap:9px;padding:5px 2px;border-radius:14px;position:relative}
+.row:hover{background:color-mix(in srgb,var(--w-on) 6%,transparent)}
+.row.done{opacity:.5}
+.row.done .r-title{text-decoration:line-through}
+.check{width:21px;height:21px;flex:0 0 21px;border-radius:5px;padding:0;cursor:pointer;
+  border:2px solid var(--w-outline);background:transparent;position:relative}
+.check[aria-checked="true"]{background:var(--w-primary);border-color:var(--w-primary)}
+.check[aria-checked="true"]::after{content:"";position:absolute;left:5.5px;top:1.5px;width:5px;height:10px;
+  border:solid var(--w-onprimary);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.r-main{min-width:0;flex:1}
+.r-title{font-size:13.5px;font-weight:500;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-meta{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:11.5px;color:var(--w-onvar);
+  white-space:nowrap;overflow:hidden}
+.chip{font-size:10.5px;font-weight:500;padding:1px 6px;border-radius:6px;flex:0 0 auto;
+  background:var(--chip-bg,var(--w-pcontainer));color:var(--chip-fg,var(--w-onpcontainer))}
+.r-time{font-size:11.5px;font-weight:500;color:var(--w-onvar);flex:0 0 auto;font-variant-numeric:tabular-nums}
+.r-time.soon{color:var(--w-error)}
+.more{width:26px;height:26px;flex:0 0 26px;border:0;background:transparent;cursor:pointer;
+  color:var(--w-onvar);border-radius:50%;display:grid;place-items:center;padding:0 0 6px;font-size:15px}
+.more:hover{background:color-mix(in srgb,var(--w-on) 10%,transparent)}
+.more-row{font-size:11.5px;font-weight:500;color:var(--w-onvar);padding:7px 2px 1px}
+
+.a-row{display:flex;gap:9px;align-items:flex-start;padding:6px 2px;border-radius:14px}
+.a-dot{width:7px;height:7px;border-radius:50%;background:var(--w-primary);flex:0 0 7px;margin-top:6px}
+.a-dot.read{background:transparent;border:1.5px solid var(--w-outline)}
+.a-main{min-width:0;flex:1}
+.a-title{font-size:13px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.a-row.unread .a-title{font-weight:500}
+.a-meta{font-size:11px;color:var(--w-onvar);margin-top:3px}
+.empty{display:flex;gap:9px;align-items:center;padding:9px 2px 5px;font-size:13px;color:var(--w-onvar)}
+.pill{display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;font:inherit;font-size:12px;
+  font-weight:500;padding:7px 13px;border-radius:99px;background:var(--w-pcontainer);color:var(--w-onpcontainer)}
+
+.t-row{display:flex;gap:9px;align-items:baseline;padding:5px 2px}
+.t-time{font-size:11px;font-weight:500;color:var(--w-onvar);width:50px;flex:0 0 50px;font-variant-numeric:tabular-nums}
+.t-title{font-size:12.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.w2{width:184px}
+
+/* ---------------- app ---------------- */
+.app{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;
+  --bg:#fdf8fd;--surf:#f7f2fa;--on:#1d1b20;--onvar:#49454f;--outline:#cac4d0;
+  --primary:#6750a4;--onprimary:#fff;--pcont:#eaddff;--onpcont:#21005d;
+  --scont:#e8def8;--onscont:#1d192b;--error:#b3261e;--errcont:#f9dedc;
+  background:var(--bg);color:var(--on);
+}
+.app.dark{
+  --bg:#141218;--surf:#1d1b20;--on:#e6e0e9;--onvar:#cac4d0;--outline:#49454f;
+  --primary:#d0bcff;--onprimary:#381e72;--pcont:#4f378b;--onpcont:#eaddff;
+  --scont:#4a4458;--onscont:#e8def8;--error:#f2b8b5;--errcont:#8c1d18;
+}
+.app-top{padding:60px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.app-top .titles h3{margin:0;font-size:29px;font-weight:500;letter-spacing:-.5px}
+.app-top .titles p{margin:3px 0 0;font-size:12.5px;color:var(--onvar)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--scont);color:var(--onscont);
+  display:grid;place-items:center;font-size:13px;font-weight:500}
+.iconbtn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--onvar);
+  display:grid;place-items:center;cursor:pointer}
+.iconbtn:hover{background:color-mix(in srgb,var(--on) 8%,transparent)}
+
+.chips{display:flex;gap:8px;padding:16px 20px 8px;overflow:hidden}
+.chipf{font-size:12.5px;font-weight:500;padding:8px 14px;border-radius:99px;border:1px solid var(--outline);
+  color:var(--onvar);white-space:nowrap;background:transparent}
+.chipf.on{background:var(--scont);color:var(--onscont);border-color:transparent}
+
+.list{flex:1;overflow:hidden;padding:6px 12px 0}
+.sec{font-size:11.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--onvar);
+  padding:14px 10px 6px}
+.sec.over{color:var(--error)}
+.li{display:flex;align-items:center;gap:12px;padding:11px 10px;border-radius:18px}
+.li:hover{background:color-mix(in srgb,var(--on) 5%,transparent)}
+.li .check2{width:22px;height:22px;flex:0 0 22px;border-radius:6px;border:2px solid var(--outline);
+  background:transparent;position:relative;padding:0;cursor:pointer}
+.li .check2[aria-checked="true"]{background:var(--primary);border-color:var(--primary)}
+.li .check2[aria-checked="true"]::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+  border:solid var(--onprimary);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.li .lm{min-width:0;flex:1}
+.li .lt{font-size:14.5px;font-weight:500;line-height:1.28;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .ls{display:flex;align-items:center;gap:7px;margin-top:3px;font-size:12px;color:var(--onvar)}
+.li .ltime{font-size:12px;font-weight:500;color:var(--onvar);font-variant-numeric:tabular-nums;flex:0 0 auto}
+.li .ltime.soon{color:var(--error)}
+.li.done{opacity:.5}
+.li.done .lt{text-decoration:line-through}
+.li .chev{color:var(--onvar);opacity:.7}
+
+.fab{position:absolute;right:20px;bottom:108px;width:58px;height:58px;border-radius:19px;
+  background:var(--pcont);color:var(--onpcont);display:grid;place-items:center;border:0;
+  box-shadow:0 6px 18px rgba(0,0,0,.22);z-index:12}
+
+.bnav{height:88px;display:flex;align-items:center;justify-content:space-around;padding:0 10px 14px;
+  background:color-mix(in srgb,var(--surf) 92%,transparent);border-top:1px solid color-mix(in srgb,var(--on) 8%,transparent)}
+.bnav .bi{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:500;
+  color:var(--onvar);width:74px;padding:6px 0}
+.bnav .bi .bubble{padding:4px 18px;border-radius:99px;display:grid;place-items:center}
+.bnav .bi.on{color:var(--on)}
+.bnav .bi.on .bubble{background:var(--scont);color:var(--onscont)}
+
+/* inbox cards */
+.cards{flex:1;overflow:hidden;padding:8px 16px 0;display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surf);border-radius:22px;padding:15px 16px}
+.card .ch{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.card .cdot{width:7px;height:7px;border-radius:50%;background:var(--primary)}
+.card .cc{font-size:11px;font-weight:500;color:var(--onpcont);background:var(--pcont);padding:2px 8px;border-radius:99px}
+.card .ct{font-size:14.5px;font-weight:500;line-height:1.35}
+.card .cb{font-size:12.5px;color:var(--onvar);line-height:1.45;margin-top:5px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .cf{font-size:11px;color:var(--onvar);margin-top:9px}
+
+/* detail */
+.detail{flex:1;overflow:hidden;padding:0 20px}
+.dchip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;
+  padding:5px 11px;border-radius:99px;background:var(--pcont);color:var(--onpcont)}
+.dtitle{font-size:26px;font-weight:500;letter-spacing:-.4px;line-height:1.2;margin:14px 0 10px}
+.dmeta{display:flex;flex-direction:column;gap:10px;margin:16px 0 18px}
+.dmrow{display:flex;align-items:center;gap:11px;font-size:13.5px}
+.dmrow .di{color:var(--onvar);display:grid;place-items:center}
+.dbody{font-size:13.5px;line-height:1.6;color:var(--onvar);border-top:1px solid color-mix(in srgb,var(--on) 10%,transparent);
+  padding-top:16px}
+.dactions{display:flex;flex-direction:column;gap:10px;padding:18px 0 8px}
+.btn{height:48px;border-radius:99px;border:0;font:inherit;font-size:14px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px}
+.btn.fill{background:var(--pcont);color:var(--onpcont)}
+.btn.tonal{background:transparent;color:var(--primary);border:1px solid var(--outline)}
+.btn.text{background:transparent;color:var(--onvar)}
+
+/* bottom sheet */
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:20}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:21;background:var(--surf);
+  border-radius:30px 30px 0 0;padding:10px 22px 26px;box-shadow:0 -10px 40px rgba(0,0,0,.3)}
+.handle{width:38px;height:4px;border-radius:99px;background:var(--outline,#cac4d0);margin:0 auto 16px}
+.sheet h4{margin:0 0 18px;font-size:19px;font-weight:500}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11.5px;font-weight:500;color:var(--onvar);margin-bottom:7px}
+.input{height:50px;border-radius:14px;border:1px solid var(--outline);background:transparent;
+  display:flex;align-items:center;padding:0 14px;font-size:14px;color:var(--on)}
+.input.ph{color:var(--onvar)}
+.inputrow{display:flex;gap:10px}
+.inputrow .input{flex:1}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap}
+.schip{font-size:12px;font-weight:500;padding:8px 13px;border-radius:99px;border:1px solid var(--outline);color:var(--onvar)}
+.schip.on{background:var(--scont);color:var(--onscont);border-color:transparent}
+.sheet .btn.fill{width:100%;margin-top:8px}
+
+/* ---------------- announcement popup ---------------- */
+.ann-overlay{position:absolute;inset:0;z-index:24;display:none}
+.ann-overlay.open{display:block}
+.ann-sheet{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-direction:column;
+  max-height:78%;background:var(--surf,#f7f2fa);color:var(--on,#1d1b20);
+  border-radius:30px 30px 0 0;padding:10px 22px 24px;
+  box-shadow:0 -12px 50px rgba(0,0,0,.38);
+  animation:sheetIn .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes sheetIn{from{transform:translateY(40px);opacity:.4}to{transform:translateY(0);opacity:1}}
+.ann-head{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.ann-head .cc{font-size:11px;font-weight:500;padding:3px 9px;border-radius:99px;
+  background:var(--pcont,#eaddff);color:var(--onpcont,#21005d);white-space:nowrap}
+.ann-when{font-size:11.5px;color:var(--onvar,#49454f);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ann-close{margin-left:auto;width:32px;height:32px;flex:0 0 32px;border-radius:50%;border:0;
+  background:transparent;color:var(--onvar,#49454f);display:grid;place-items:center;cursor:pointer}
+.ann-close:hover{background:color-mix(in srgb,var(--on,#1d1b20) 8%,transparent)}
+.ann-title{margin:0 0 12px;font-size:22px;font-weight:500;letter-spacing:-.3px;line-height:1.25}
+.ann-body{flex:1;overflow:auto;font-size:14px;line-height:1.62;color:var(--onvar,#49454f);
+  padding-right:2px;mask-image:linear-gradient(to bottom,transparent 0,#000 6px,#000 calc(100% - 14px),transparent 100%)}
+.ann-body p{margin:0 0 13px}
+.ann-body p:last-child{margin-bottom:4px}
+.ann-body b{color:var(--on,#1d1b20);font-weight:500}
+.ann-actions{display:flex;gap:10px;padding-top:16px;margin-top:6px;
+  border-top:1px solid color-mix(in srgb,var(--on,#1d1b20) 10%,transparent)}
+.ann-actions .btn{flex:1;height:46px}
+.ann-sheet .btn.fill{background:var(--pcont,#eaddff);color:var(--onpcont,#21005d)}
+.ann-sheet .btn.tonal{background:transparent;color:var(--primary,#6750a4);border:1px solid var(--outline,#cac4d0)}
+.card{cursor:pointer}
+
+.note{font-size:12.5px;color:#9d97ad;line-height:1.6;margin:18px 0 0;max-width:84ch}
+.kv{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#9d97ad;margin-top:10px}
+.kv b{color:#d8d2e4;font-weight:500}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Eraser — Pixel mockups</h1>
+  <p class="sub">
+    Home screen and app, drawn at Pixel dimensions (412 × 915 dp). Material 3 dynamic color,
+    28dp widget corners, tonal course chips. Checkboxes and overflow buttons are live.
+  </p>
+
+  <!-- ================= HOME ================= -->
+  <h2>Home screen</h2>
+  <div class="gallery">
+
+    <!-- LIGHT -->
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="wallpaper light-wall"></div>
+          <div class="status on-dark">
+            <span>9:41</span>
+            <span class="right">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 10.5a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/><path d="M3.6 6.2a6.4 6.4 0 0 1 8.8 0l-1.4 1.4a4.4 4.4 0 0 0-6 0L3.6 6.2Z"/><path d="M1 3.6a10 10 0 0 1 14 0l-1.4 1.4a8 8 0 0 0-11.2 0L1 3.6Z"/></svg>
+              <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".6"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".6"/></svg>
+            </span>
+          </div>
+
+          <div class="home">
+            <div class="glance">
+              <div class="g-left">
+                <span class="g-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
+                </span>
+                <div>
+                  <div class="g-date">Tue, Nov 3</div>
+                  <div class="g-meta">4 due today · 2 announcements</div>
+                </div>
+              </div>
+              <div class="g-temp">18°</div>
+            </div>
+
+            <!-- Due soon widget -->
+            <div class="widget">
+              <div class="w-head">
+                <span class="w-title">Due soon</span>
+                <span class="w-badge">3</span>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main">
+                  <div class="r-title">HW5 · Graph traversal</div>
+                  <div class="r-meta"><span class="chip">CS 3410</span><span>11:59 PM</span></div>
+                </div>
+                <span class="r-time soon">3h</span>
+                <button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main">
+                  <div class="r-title">WebAssign 7.2 — Integration</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#ffd9e2;--chip-fg:#3e001d">MATH 2210</span><span>11:59 PM</span></div>
+                </div>
+                <span class="r-time">Tomorr.</span>
+                <button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main">
+                  <div class="r-title">Reading response #4</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#c8f0ec;--chip-fg:#00312e">ENG 2100</span><span>9:00 AM</span></div>
+                </div>
+                <span class="r-time">Thu</span>
+                <button class="more">⋯</button>
+              </div>
+              <div class="more-row">+2 more this week</div>
+            </div>
+
+            <!-- Announcements widget -->
+            <div class="widget">
+              <div class="w-head">
+                <span class="w-title">Announcements</span>
+                <span class="w-badge">2 new</span>
+              </div>
+              <div class="a-row unread">
+                <span class="a-dot"></span>
+                <div class="a-main">
+                  <div class="a-title">Midterm moved to Nov 14 — same room</div>
+                  <div class="a-meta">CS 3410 · 2h ago</div>
+                </div>
+              </div>
+              <div class="a-row unread">
+                <span class="a-dot"></span>
+                <div class="a-main">
+                  <div class="a-title">Lab 6 cancelled — no makeup session</div>
+                  <div class="a-meta">CS 3410 · 5h ago</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="home-spacer"></div>
+
+            <div class="searchbar">
+              <span class="glogo">G</span>
+              <span>Search</span>
+              <span class="mic">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+              </span>
+            </div>
+
+            <div class="dock">
+              <div class="dock-ic" style="background:linear-gradient(160deg,#4cd07d,#1f9d55)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2.8h3l1.5 4-2 1.4a12 12 0 0 0 5.7 5.7l1.4-2 4 1.5v3a2 2 0 0 1-2.1 2A15.4 15.4 0 0 1 4.6 4.9a2 2 0 0 1 2-2.1Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#6ba8ff,#2f6fe0)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-5 4.2V5.5Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:#fff">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3" stroke="#EA4335"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#3a3a42,#15151a)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><circle cx="12" cy="12.5" r="4"/></svg>
+              </div>
+            </div>
+            <div class="dots"><i class="on"></i><i></i><i></i></div>
+            <div class="navpill"></div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>Light</b> — dynamic color from wallpaper</div>
+    </div>
+
+    <!-- DARK -->
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="wallpaper dark-wall"></div>
+          <div class="status on-dark">
+            <span>9:41</span>
+            <span class="right">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 10.5a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/><path d="M3.6 6.2a6.4 6.4 0 0 1 8.8 0l-1.4 1.4a4.4 4.4 0 0 0-6 0L3.6 6.2Z"/><path d="M1 3.6a10 10 0 0 1 14 0l-1.4 1.4a8 8 0 0 0-11.2 0L1 3.6Z"/></svg>
+              <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".6"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".6"/></svg>
+            </span>
+          </div>
+
+          <div class="home">
+            <div class="glance">
+              <div class="g-left">
+                <span class="g-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
+                </span>
+                <div>
+                  <div class="g-date">Tue, Nov 3</div>
+                  <div class="g-meta">4 due today · 2 announcements</div>
+                </div>
+              </div>
+              <div class="g-temp">18°</div>
+            </div>
+
+            <div class="widget dark">
+              <div class="w-head">
+                <span class="w-title">Due soon</span>
+                <span class="w-badge">3</span>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main">
+                  <div class="r-title">HW5 · Graph traversal</div>
+                  <div class="r-meta"><span class="chip">CS 3410</span><span>11:59 PM</span></div>
+                </div>
+                <span class="r-time soon">3h</span>
+                <button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="true"></button>
+                <div class="r-main">
+                  <div class="r-title">WebAssign 7.2 — Integration</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#633b48;--chip-fg:#ffd9e2">MATH 2210</span><span>11:59 PM</span></div>
+                </div>
+                <span class="r-time">Tomorr.</span>
+                <button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main">
+                  <div class="r-title">Reading response #4</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#004f4a;--chip-fg:#a7f2ea">ENG 2100</span><span>9:00 AM</span></div>
+                </div>
+                <span class="r-time">Thu</span>
+                <button class="more">⋯</button>
+              </div>
+              <div class="more-row">+2 more this week</div>
+            </div>
+
+            <div class="widget dark">
+              <div class="w-head">
+                <span class="w-title">Announcements</span>
+                <span class="w-badge">2 new</span>
+              </div>
+              <div class="a-row unread">
+                <span class="a-dot"></span>
+                <div class="a-main">
+                  <div class="a-title">Midterm moved to Nov 14 — same room</div>
+                  <div class="a-meta">CS 3410 · 2h ago</div>
+                </div>
+              </div>
+              <div class="a-row unread">
+                <span class="a-dot"></span>
+                <div class="a-main">
+                  <div class="a-title">Lab 6 cancelled — no makeup session</div>
+                  <div class="a-meta">CS 3410 · 5h ago</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="home-spacer"></div>
+
+            <div class="searchbar">
+              <span class="glogo">G</span>
+              <span>Search</span>
+              <span class="mic">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+              </span>
+            </div>
+
+            <div class="dock">
+              <div class="dock-ic" style="background:linear-gradient(160deg,#4cd07d,#1f9d55)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2.8h3l1.5 4-2 1.4a12 12 0 0 0 5.7 5.7l1.4-2 4 1.5v3a2 2 0 0 1-2.1 2A15.4 15.4 0 0 1 4.6 4.9a2 2 0 0 1 2-2.1Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#6ba8ff,#2f6fe0)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-5 4.2V5.5Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:#fff">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3" stroke="#EA4335"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#3a3a42,#15151a)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><circle cx="12" cy="12.5" r="4"/></svg>
+              </div>
+            </div>
+            <div class="dots"><i class="on"></i><i></i><i></i></div>
+            <div class="navpill"></div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>Dark</b> — widgets follow the theme</div>
+    </div>
+
+  </div>
+
+  <!-- ================= APP ================= -->
+  <h2>The app</h2>
+  <div class="gallery">
+
+    <!-- TODAY -->
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="app">
+            <div class="status on-light">
+              <span>9:41</span>
+              <span class="right">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+                <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+              </span>
+            </div>
+
+            <div class="app-top">
+              <div class="titles">
+                <h3>Today</h3>
+                <p>Tue, Nov 3 · 4 due</p>
+              </div>
+              <div class="avatar">CV</div>
+            </div>
+
+            <div class="chips">
+              <span class="chipf on">All</span>
+              <span class="chipf">Overdue</span>
+              <span class="chipf">This week</span>
+              <span class="chipf">Done</span>
+            </div>
+
+            <div class="list">
+              <div class="sec over">Overdue</div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">Problem set 3 — Eigenvalues</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#ffd9e2;--chip-fg:#3e001d">MATH 2210</span><span>was due Mon</span></div>
+                </div>
+                <span class="ltime soon">1d late</span>
+              </div>
+
+              <div class="sec">Today</div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">HW5 · Graph traversal</div>
+                  <div class="ls"><span class="chip">CS 3410</span><span>11:59 PM</span></div>
+                </div>
+                <span class="ltime soon">3h</span>
+              </div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">WebAssign 7.2 — Integration</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#ffd9e2;--chip-fg:#3e001d">MATH 2210</span><span>11:59 PM</span></div>
+                </div>
+                <span class="ltime">8h</span>
+              </div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">Study block — midterm prep</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#e8def8;--chip-fg:#1d192b">Custom</span><span>7:00 PM</span></div>
+                </div>
+                <span class="ltime">9h</span>
+              </div>
+
+              <div class="sec">This week</div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">Reading response #4</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#c8f0ec;--chip-fg:#00312e">ENG 2100</span><span>Thu 9:00 AM</span></div>
+                </div>
+                <span class="ltime">2d</span>
+              </div>
+              <div class="li">
+                <button class="check2" aria-checked="true"></button>
+                <div class="lm">
+                  <div class="lt">Lab 5 writeup</div>
+                  <div class="ls"><span class="chip">CS 3410</span><span>Fri 11:59 PM</span></div>
+                </div>
+                <span class="ltime">3d</span>
+              </div>
+            </div>
+
+            <button class="fab">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+
+            <div class="bnav">
+              <div class="bi on">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+                <span>Today</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5A2.5 2.5 0 0 1 4 20.5Z"/></svg></span>
+                <span>Courses</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2.5H4.5L6 16Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
+                <span>Inbox</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M4.2 7.5l1.7 1M18.1 15.5l1.7 1M4.2 16.5l1.7-1M18.1 8.5l1.7-1"/></svg></span>
+                <span>Settings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>Today</b> — grouped list, custom items inline</div>
+    </div>
+
+    <!-- INBOX -->
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="app">
+            <div class="status on-light">
+              <span>9:41</span>
+              <span class="right">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+                <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+              </span>
+            </div>
+
+            <div class="app-top">
+              <div class="titles">
+                <h3>Inbox</h3>
+                <p>2 unread · 3 courses</p>
+              </div>
+              <button class="iconbtn">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+              </button>
+            </div>
+
+            <div class="chips">
+              <span class="chipf on">All</span>
+              <span class="chipf">Unread</span>
+              <span class="chipf">CS 3410</span>
+              <span class="chipf">MATH</span>
+            </div>
+
+            <div class="cards">
+              <div class="card">
+                <div class="ch"><span class="cdot"></span><span class="cc">CS 3410</span></div>
+                <div class="ct">Midterm moved to Nov 14 — same room</div>
+                <div class="cb">The midterm is now Thursday Nov 14, still in GHC 4401. Same format, same time. Sorry for the shuffle.</div>
+                <div class="cf">2h ago</div>
+              </div>
+              <div class="card">
+                <div class="ch"><span class="cdot"></span><span class="cc">CS 3410</span></div>
+                <div class="ct">Lab 6 cancelled — no makeup session</div>
+                <div class="cb">We're dropping one lab this term. Lab 6 is cancelled and will not be rescheduled.</div>
+                <div class="cf">5h ago</div>
+              </div>
+              <div class="card">
+                <div class="ch"><span class="cc" style="background:#ffd9e2;color:#3e001d">MATH 2210</span></div>
+                <div class="ct">Problem set 4 solutions posted</div>
+                <div class="cb">Solutions are under Course Materials → PS4. Graded rubrics come back Friday.</div>
+                <div class="cf">Yesterday</div>
+              </div>
+            </div>
+
+            <div class="ann-overlay" id="inboxSheet">
+              <div class="scrim"></div>
+              <div class="ann-sheet">
+                <div class="handle"></div>
+                <div class="ann-head">
+                  <span class="cc">CS 3410</span>
+                  <span class="ann-when">2h ago · Prof. Ramirez</span>
+                  <button class="ann-close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                  </button>
+                </div>
+                <h4 class="ann-title">Midterm moved to Nov 14 — same room</h4>
+                <div class="ann-body">
+                  <p>Hi all — a few schedule changes for the rest of the term.</p>
+                  <p><b>1. Midterm.</b> Moves from Fri Nov 7 to <b>Thursday, Nov 14</b>. Same room (GHC 4401), same start time (7:00 PM).</p>
+                  <p><b>2. Lab 6</b> is cancelled and will not be rescheduled. Lab 7 runs as planned.</p>
+                  <p><b>3. Office hours</b> this week shift to Wednesday 2–4 PM.</p>
+                  <p>The review session on Nov 12 is still on. Bring questions.</p>
+                </div>
+                <div class="ann-actions">
+                  <button class="btn tonal">Mark read</button>
+                  <button class="btn fill">Open in Blackboard</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="bnav">
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+                <span>Today</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5A2.5 2.5 0 0 1 4 20.5Z"/></svg></span>
+                <span>Courses</span>
+              </div>
+              <div class="bi on">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2.5H4.5L6 16Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
+                <span>Inbox</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M4.2 7.5l1.7 1M18.1 15.5l1.7 1M4.2 16.5l1.7-1M18.1 8.5l1.7-1"/></svg></span>
+                <span>Settings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>Inbox</b> — announcements with local read state</div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="app">
+            <div class="status on-light">
+              <span>9:41</span>
+              <span class="right">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+                <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+              </span>
+            </div>
+
+            <div class="app-top">
+              <button class="iconbtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
+              </button>
+              <button class="iconbtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg>
+              </button>
+            </div>
+
+            <div class="detail">
+              <span class="dchip">CS 3410 · Blackboard</span>
+              <div class="dtitle">HW5 · Graph traversal</div>
+
+              <div class="dmeta">
+                <div class="dmrow">
+                  <span class="di"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg></span>
+                  <span><b>Due today</b> · 11:59 PM</span>
+                </div>
+                <div class="dmrow">
+                  <span class="di"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>
+                  <span>About 3 hours left</span>
+                </div>
+                <div class="dmrow">
+                  <span class="di"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3.5 14.6 9l6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.9l6-.9L12 3.5Z"/></svg></span>
+                  <span>100 points · 12% of grade</span>
+                </div>
+              </div>
+
+              <div class="dbody">
+                Implement BFS and DFS over an adjacency list. Report the visit order and
+                the shortest unweighted path between two nodes. Submit a single <code>.py</code> file.
+              </div>
+
+              <div class="dactions">
+                <button class="btn fill">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+                  Open in Blackboard
+                </button>
+                <button class="btn tonal">Set my own date</button>
+                <button class="btn text">Mark done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>Detail</b> — override or complete locally</div>
+    </div>
+
+    <!-- QUICK ADD -->
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="app">
+            <div class="status on-light">
+              <span>9:41</span>
+              <span class="right">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+                <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+              </span>
+            </div>
+
+            <div class="app-top">
+              <div class="titles">
+                <h3>Today</h3>
+                <p>Tue, Nov 3 · 4 due</p>
+              </div>
+              <div class="avatar">CV</div>
+            </div>
+
+            <div class="chips">
+              <span class="chipf on">All</span>
+              <span class="chipf">Overdue</span>
+              <span class="chipf">This week</span>
+            </div>
+
+            <div class="list">
+              <div class="sec">Today</div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">HW5 · Graph traversal</div>
+                  <div class="ls"><span class="chip">CS 3410</span><span>11:59 PM</span></div>
+                </div>
+                <span class="ltime soon">3h</span>
+              </div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">WebAssign 7.2 — Integration</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#ffd9e2;--chip-fg:#3e001d">MATH 2210</span><span>11:59 PM</span></div>
+                </div>
+                <span class="ltime">8h</span>
+              </div>
+            </div>
+
+            <div class="scrim"></div>
+
+            <div class="sheet">
+              <div class="handle"></div>
+              <h4>New deadline</h4>
+
+              <div class="field">
+                <label>What</label>
+                <div class="input">Study for CS midterm</div>
+              </div>
+
+              <div class="field">
+                <label>Course</label>
+                <div class="inputrow">
+                  <div class="input"><span class="chip" style="--chip-bg:#eaddff;--chip-fg:#21005d;font-size:11.5px">CS 3410</span></div>
+                  <div class="input ph" style="flex:0 0 92px">Personal</div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>When</label>
+                <div class="inputrow">
+                  <div class="input">Thu, Nov 5</div>
+                  <div class="input">7:00 PM</div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Remind me</label>
+                <div class="chiprow">
+                  <span class="schip">10 min</span>
+                  <span class="schip on">2 hours</span>
+                  <span class="schip">1 day</span>
+                  <span class="schip">Custom</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Repeat</label>
+                <div class="chiprow">
+                  <span class="schip on">Once</span>
+                  <span class="schip">Weekly</span>
+                </div>
+              </div>
+
+              <button class="btn fill">Add to Today</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>Quick add</b> — custom deadlines and reminders</div>
+    </div>
+
+    <!-- DARK APP -->
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="app dark">
+            <div class="status on-dark">
+              <span>9:41</span>
+              <span class="right">
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+                <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+              </span>
+            </div>
+
+            <div class="app-top">
+              <div class="titles">
+                <h3>Today</h3>
+                <p>Tue, Nov 3 · 4 due</p>
+              </div>
+              <div class="avatar" style="background:#4a4458;color:#e8def8">CV</div>
+            </div>
+
+            <div class="chips">
+              <span class="chipf on">All</span>
+              <span class="chipf">Overdue</span>
+              <span class="chipf">This week</span>
+              <span class="chipf">Done</span>
+            </div>
+
+            <div class="list">
+              <div class="sec over">Overdue</div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">Problem set 3 — Eigenvalues</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#633b48;--chip-fg:#ffd9e2">MATH 2210</span><span>was due Mon</span></div>
+                </div>
+                <span class="ltime soon">1d late</span>
+              </div>
+
+              <div class="sec">Today</div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">HW5 · Graph traversal</div>
+                  <div class="ls"><span class="chip">CS 3410</span><span>11:59 PM</span></div>
+                </div>
+                <span class="ltime soon">3h</span>
+              </div>
+              <div class="li">
+                <button class="check2" aria-checked="true"></button>
+                <div class="lm">
+                  <div class="lt">WebAssign 7.2 — Integration</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#633b48;--chip-fg:#ffd9e2">MATH 2210</span><span>11:59 PM</span></div>
+                </div>
+                <span class="ltime">8h</span>
+              </div>
+
+              <div class="sec">This week</div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">Reading response #4</div>
+                  <div class="ls"><span class="chip" style="--chip-bg:#004f4a;--chip-fg:#a7f2ea">ENG 2100</span><span>Thu 9:00 AM</span></div>
+                </div>
+                <span class="ltime">2d</span>
+              </div>
+              <div class="li">
+                <button class="check2" aria-checked="false"></button>
+                <div class="lm">
+                  <div class="lt">Lab 5 writeup</div>
+                  <div class="ls"><span class="chip">CS 3410</span><span>Fri 11:59 PM</span></div>
+                </div>
+                <span class="ltime">3d</span>
+              </div>
+            </div>
+
+            <button class="fab">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+
+            <div class="bnav">
+              <div class="bi on">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+                <span>Today</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5A2.5 2.5 0 0 1 4 20.5Z"/></svg></span>
+                <span>Courses</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2.5H4.5L6 16Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
+                <span>Inbox</span>
+              </div>
+              <div class="bi">
+                <span class="bubble"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M4.2 7.5l1.7 1M18.1 15.5l1.7 1M4.2 16.5l1.7-1M18.1 8.5l1.7-1"/></svg></span>
+                <span>Settings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>Dark app</b> — same layout, M3 dark tokens</div>
+    </div>
+
+  </div>
+
+  <!-- ================= POPUP ================= -->
+  <h2>Announcement popup</h2>
+  <div class="gallery">
+
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="wallpaper light-wall"></div>
+          <div class="status on-dark">
+            <span>9:41</span>
+            <span class="right">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 10.5a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/><path d="M3.6 6.2a6.4 6.4 0 0 1 8.8 0l-1.4 1.4a4.4 4.4 0 0 0-6 0L3.6 6.2Z"/><path d="M1 3.6a10 10 0 0 1 14 0l-1.4 1.4a8 8 0 0 0-11.2 0L1 3.6Z"/></svg>
+              <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".6"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".6"/></svg>
+            </span>
+          </div>
+
+          <div class="home">
+            <div class="glance">
+              <div class="g-left">
+                <span class="g-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
+                </span>
+                <div>
+                  <div class="g-date">Tue, Nov 3</div>
+                  <div class="g-meta">4 due today · 2 announcements</div>
+                </div>
+              </div>
+              <div class="g-temp">18°</div>
+            </div>
+
+            <div class="widget">
+              <div class="w-head">
+                <span class="w-title">Due soon</span>
+                <span class="w-badge">3</span>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main">
+                  <div class="r-title">HW5 · Graph traversal</div>
+                  <div class="r-meta"><span class="chip">CS 3410</span><span>11:59 PM</span></div>
+                </div>
+                <span class="r-time soon">3h</span>
+                <button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main">
+                  <div class="r-title">WebAssign 7.2 — Integration</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#ffd9e2;--chip-fg:#3e001d">MATH 2210</span><span>11:59 PM</span></div>
+                </div>
+                <span class="r-time">Tomorr.</span>
+                <button class="more">⋯</button>
+              </div>
+            </div>
+
+            <div class="widget">
+              <div class="w-head">
+                <span class="w-title">Announcements</span>
+                <span class="w-badge">2 new</span>
+              </div>
+              <div class="a-row unread">
+                <span class="a-dot"></span>
+                <div class="a-main">
+                  <div class="a-title">Midterm moved to Nov 14 — same room</div>
+                  <div class="a-meta">CS 3410 · 2h ago</div>
+                </div>
+              </div>
+              <div class="a-row unread">
+                <span class="a-dot"></span>
+                <div class="a-main">
+                  <div class="a-title">Lab 6 cancelled — no makeup session</div>
+                  <div class="a-meta">CS 3410 · 5h ago</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="home-spacer"></div>
+            <div class="searchbar"><span class="glogo">G</span><span>Search</span></div>
+            <div class="dock">
+              <div class="dock-ic" style="background:linear-gradient(160deg,#4cd07d,#1f9d55)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2.8h3l1.5 4-2 1.4a12 12 0 0 0 5.7 5.7l1.4-2 4 1.5v3a2 2 0 0 1-2.1 2A15.4 15.4 0 0 1 4.6 4.9a2 2 0 0 1 2-2.1Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#6ba8ff,#2f6fe0)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-5 4.2V5.5Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:#fff">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3" stroke="#EA4335"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#3a3a42,#15151a)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><circle cx="12" cy="12.5" r="4"/></svg>
+              </div>
+            </div>
+            <div class="dots"><i class="on"></i><i></i><i></i></div>
+            <div class="navpill"></div>
+          </div>
+
+          <div class="ann-overlay open" id="homeSheet">
+            <div class="scrim"></div>
+            <div class="ann-sheet">
+              <div class="handle"></div>
+              <div class="ann-head">
+                <span class="cc">CS 3410</span>
+                <span class="ann-when">2h ago · Prof. Ramirez</span>
+                <button class="ann-close">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                </button>
+              </div>
+              <h4 class="ann-title">Midterm moved to Nov 14 — same room</h4>
+              <div class="ann-body">
+                <p>Hi all — a few schedule changes for the rest of the term.</p>
+                <p><b>1. Midterm.</b> Moves from Fri Nov 7 to <b>Thursday, Nov 14</b>. Same room (GHC 4401), same start time (7:00 PM).</p>
+                <p><b>2. Lab 6</b> is cancelled and will not be rescheduled. Lab 7 runs as planned.</p>
+                <p><b>3. Office hours</b> this week shift to Wednesday 2–4 PM.</p>
+                <p>The review session on Nov 12 is still on. Bring questions.</p>
+              </div>
+              <div class="ann-actions">
+                <button class="btn tonal">Mark read</button>
+                <button class="btn fill">Open in Blackboard</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>From the widget</b> — sheet over the home screen, app never opens</div>
+    </div>
+
+    <div style="max-width:520px;padding-top:12px">
+      <p class="note" style="margin-top:0">
+        Tapping a row in the Announcements widget opens this sheet directly — the full text, no
+        truncated preview and no app launch. The dimmed home screen stays behind it, so dismissing
+        drops you right back where you were.
+      </p>
+      <p class="note">
+        <b style="color:#d8d2e4;font-weight:500">Why a sheet, not a dialog:</b> announcements run long.
+        A centered dialog would either clip or become a tiny scroll box. A bottom sheet grows with the
+        content, scrolls naturally, and has room for two actions.
+      </p>
+      <p class="note">
+        <b style="color:#d8d2e4;font-weight:500">Implementation:</b> the widget tap fires
+        <code>actionStartActivity</code> at a translucent <code>TrampolineActivity</code> that hosts a
+        Material 3 <code>ModalBottomSheet</code> and finishes on dismiss. Same composable is reused
+        in-app, so there's one implementation, not two.
+      </p>
+      <div class="kv">
+        <span><b>Tap</b> full text</span>
+        <span><b>Swipe down</b> dismiss</span>
+        <span><b>Mark read</b> clears the dot</span>
+        <span><b>Open</b> hands off to Blackboard</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= SIZES ================= -->
+  <h2>Widget sizes</h2>
+  <div class="gallery">
+    <div class="figure">
+      <div class="phone">
+        <div class="screen">
+          <div class="wallpaper light-wall"></div>
+          <div class="status on-dark">
+            <span>9:41</span>
+            <span class="right">
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></svg>
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 10.5a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/><path d="M3.6 6.2a6.4 6.4 0 0 1 8.8 0l-1.4 1.4a4.4 4.4 0 0 0-6 0L3.6 6.2Z"/><path d="M1 3.6a10 10 0 0 1 14 0l-1.4 1.4a8 8 0 0 0-11.2 0L1 3.6Z"/></svg>
+              <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" opacity=".6"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4v4a2.5 2.5 0 0 0 0-4Z" fill="currentColor" opacity=".6"/></svg>
+            </span>
+          </div>
+
+          <div class="home">
+            <div class="glance">
+              <div class="g-left">
+                <span class="g-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>
+                </span>
+                <div>
+                  <div class="g-date">Tue, Nov 3</div>
+                  <div class="g-meta">4 due today</div>
+                </div>
+              </div>
+              <div class="g-temp">18°</div>
+            </div>
+
+            <!-- 4x4 due soon -->
+            <div class="widget">
+              <div class="w-head">
+                <span class="w-title">Due soon</span>
+                <span class="w-badge">5</span>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main"><div class="r-title">Problem set 3 — Eigenvalues</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#ffd9e2;--chip-fg:#3e001d">MATH 2210</span><span>Overdue</span></div></div>
+                <span class="r-time soon">1d</span><button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main"><div class="r-title">HW5 · Graph traversal</div>
+                  <div class="r-meta"><span class="chip">CS 3410</span><span>11:59 PM</span></div></div>
+                <span class="r-time soon">3h</span><button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main"><div class="r-title">WebAssign 7.2 — Integration</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#ffd9e2;--chip-fg:#3e001d">MATH 2210</span><span>11:59 PM</span></div></div>
+                <span class="r-time">8h</span><button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main"><div class="r-title">Reading response #4</div>
+                  <div class="r-meta"><span class="chip" style="--chip-bg:#c8f0ec;--chip-fg:#00312e">ENG 2100</span><span>Thu 9:00 AM</span></div></div>
+                <span class="r-time">2d</span><button class="more">⋯</button>
+              </div>
+              <div class="row">
+                <button class="check" aria-checked="false"></button>
+                <div class="r-main"><div class="r-title">Lab 5 writeup</div>
+                  <div class="r-meta"><span class="chip">CS 3410</span><span>Fri 11:59 PM</span></div></div>
+                <span class="r-time">3d</span><button class="more">⋯</button>
+              </div>
+            </div>
+
+            <!-- 2x2 pair -->
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <div class="widget w2">
+                <div class="w-head">
+                  <span class="w-title" style="font-size:13px">Today</span>
+                  <span class="w-sub">3</span>
+                </div>
+                <div class="t-row"><span class="t-time">11:59</span><span class="t-title">HW5</span></div>
+                <div class="t-row"><span class="t-time">19:00</span><span class="t-title">Study block</span></div>
+                <div class="t-row"><span class="t-time">All day</span><span class="t-title">Advising</span></div>
+              </div>
+              <div class="widget w2">
+                <div class="w-head">
+                  <span class="w-title" style="font-size:13px">New</span>
+                  <span class="w-badge" style="font-size:10px">2</span>
+                </div>
+                <div class="a-row unread">
+                  <span class="a-dot"></span>
+                  <div class="a-main">
+                    <div class="a-title" style="font-size:12px">Midterm moved to Nov 14</div>
+                    <div class="a-meta">CS 3410</div>
+                  </div>
+                </div>
+                <div class="a-row unread">
+                  <span class="a-dot"></span>
+                  <div class="a-main">
+                    <div class="a-title" style="font-size:12px">Lab 6 cancelled</div>
+                    <div class="a-meta">CS 3410</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="home-spacer"></div>
+            <div class="searchbar">
+              <span class="glogo">G</span><span>Search</span>
+            </div>
+            <div class="dock">
+              <div class="dock-ic" style="background:linear-gradient(160deg,#4cd07d,#1f9d55)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2.8h3l1.5 4-2 1.4a12 12 0 0 0 5.7 5.7l1.4-2 4 1.5v3a2 2 0 0 1-2.1 2A15.4 15.4 0 0 1 4.6 4.9a2 2 0 0 1 2-2.1Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#6ba8ff,#2f6fe0)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-5 4.2V5.5Z"/></svg>
+              </div>
+              <div class="dock-ic" style="background:#fff">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3" stroke="#EA4335"/></svg>
+              </div>
+              <div class="dock-ic" style="background:linear-gradient(160deg,#3a3a42,#15151a)">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><circle cx="12" cy="12.5" r="4"/></svg>
+              </div>
+            </div>
+            <div class="dots"><i class="on"></i><i></i><i></i></div>
+            <div class="navpill"></div>
+          </div>
+        </div>
+      </div>
+      <div class="caption"><b>4×4 + 2×2</b> — dense and glanceable together</div>
+    </div>
+
+    <div style="max-width:520px;padding-top:12px">
+      <p class="note" style="margin-top:0">
+        Sizes are real widget cells, not artboards. The 4×4 shows five items and is the one you'd
+        actually live with; the 2×2 pair is for a second home-screen page.
+      </p>
+      <div class="kv">
+        <span><b>4×2</b> 2 rows + “+N more”</span>
+        <span><b>4×3</b> 3 rows</span>
+        <span><b>4×4</b> 5 rows</span>
+        <span><b>2×2</b> 3 compact lines</span>
+      </div>
+      <p class="note">
+        Tap behaviour: row opens detail, checkbox completes, <code>⋯</code> opens Snooze / Tomorrow /
+        Dismiss. The <code>⋯</code> is a real button because widgets have no long-press.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.check, .check2').forEach(function (b) {
+  b.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var on = b.getAttribute('aria-checked') === 'true';
+    b.setAttribute('aria-checked', String(!on));
+    var row = b.closest('.row') || b.closest('.li');
+    if (row) row.classList.toggle('done', !on);
+  });
+});
+
+// tap an announcement card -> full-text sheet
+document.querySelectorAll('.card').forEach(function (c) {
+  c.addEventListener('click', function () {
+    var o = document.getElementById('inboxSheet');
+    if (o) o.classList.add('open');
+  });
+});
+
+// close sheets
+document.querySelectorAll('.ann-overlay .scrim, .ann-close').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var o = el.closest('.ann-overlay');
+    if (o) o.classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
